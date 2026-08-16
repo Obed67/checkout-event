@@ -27,26 +27,23 @@ function MemberCard({
       variants={staggerItem}
       className="flex h-full min-h-0 min-w-0 flex-col items-center"
     >
-      <div className="flex min-h-0 w-full flex-1 items-center justify-center">
-        <div
-          className={`relative h-full overflow-hidden rounded-[1.35rem] bg-[var(--tcc-line)] ring-4 ${accentRing[index % 3]}`}
-          style={{ aspectRatio: "3 / 4", width: "auto" }}
-        >
-          <Image
-            src={photo}
-            alt={name}
-            fill
-            sizes="(max-width: 768px) 40vw, 22vw"
-            className="object-cover"
-          />
-        </div>
+      <div
+        className={`relative aspect-[3/4] h-[calc(100%-2.25rem)] overflow-hidden rounded-[1.35rem] bg-[var(--tcc-line)] ring-4 ${accentRing[index % 3]}`}
+      >
+        <Image
+          src={photo}
+          alt={name}
+          fill
+          sizes="(max-width: 768px) 40vw, 28vw"
+          className="object-cover object-top"
+        />
       </div>
-      <div className="mt-2 w-full shrink-0 px-1 text-center">
-        <p className="font-[family-name:var(--font-display)] text-base font-bold tracking-[-0.03em] text-[var(--tcc-ink)] sm:text-lg">
+      <div className="mt-1.5 h-8 w-full shrink-0 px-1 text-center">
+        <p className="font-[family-name:var(--font-display)] truncate text-sm font-bold tracking-[-0.03em] text-[var(--tcc-ink)] sm:text-base">
           {name}
         </p>
         {role ? (
-          <p className="text-xs leading-snug text-[var(--tcc-muted)] sm:text-sm">
+          <p className="truncate text-[11px] leading-none text-[var(--tcc-muted)] sm:text-xs">
             {role}
           </p>
         ) : null}
@@ -57,40 +54,37 @@ function MemberCard({
 
 export function CoreTeamSlide() {
   const { coreTeam } = presentation;
-  const heads = coreTeam.members.slice(0, 2);
-  const rest = coreTeam.members.slice(2);
+  const [lead, ...others] = coreTeam.members;
 
   return (
     <SlideShell>
       <SlideHeader
         title={coreTeam.title}
         subtitle={coreTeam.intro}
-        className="mb-4 sm:mb-5"
+        className="mb-3 sm:mb-4"
       />
 
-      <div className="flex min-h-0 flex-1 flex-col gap-4">
+      <div className="grid min-h-0 flex-1 grid-rows-[1.7fr_1fr] gap-3">
         <motion.ul
           variants={staggerContainer}
           initial="hidden"
           animate="show"
-          className="grid min-h-0 flex-[1.2] grid-cols-2 justify-items-center gap-5 sm:gap-8"
+          className="flex h-full min-h-0 justify-center"
         >
-          {heads.map((member, index) => (
-            <MemberCard key={member.photo} {...member} index={index} />
-          ))}
+          <MemberCard {...lead} index={0} />
         </motion.ul>
 
         <motion.ul
           variants={staggerContainer}
           initial="hidden"
           animate="show"
-          className="grid min-h-0 flex-1 grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-5"
+          className="flex h-full min-h-0 justify-center gap-4 sm:gap-5"
         >
-          {rest.map((member, index) => (
+          {others.map((member, index) => (
             <MemberCard
               key={member.photo}
               {...member}
-              index={index + heads.length}
+              index={index + 1}
             />
           ))}
         </motion.ul>
