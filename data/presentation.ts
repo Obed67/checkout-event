@@ -113,12 +113,6 @@ export const presentation = {
         note: undefined,
       },
       {
-        name: "Hélène",
-        role: "Co-lead",
-        photo: "/team/Hélène.jpeg",
-        note: undefined,
-      },
-      {
         name: "Grâce",
         role: "Designer graphique",
         photo: "/team/Grâce.webp",
